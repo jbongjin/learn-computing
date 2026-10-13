@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>운명공방 — AI 사주 & 운명 프로필</title>
+  <meta name="description" content="사주, 오행 DNA, 인생 타임라인, AI 상담, 궁합, 타로, MBTI, 꿈해몽을 하나의 운명 프로필로." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="stars"></div>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="sigil">✦</span> 운명공방</a>
+    <nav>
+      <a href="#profile">운명 프로필</a><a href="#decision">선택 시뮬레이터</a><a href="#compatibility">궁합</a><a href="#mystic">타로·꿈</a>
+    </nav>
+    <span class="badge">ASTRA READY</span>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">AI DESTINY LAB · ENTERTAINMENT</p>
+        <h1>당신이 태어난 순간,<br><em>여덟 글자</em>가 시작됐다.</h1>
+        <p>사주팔자만 보는 사이트가 아닙니다. 오행 DNA, 인생 흐름, 고민 선택지, 궁합, 타로, MBTI, 꿈까지 하나의 <b>운명 프로필</b>로 연결합니다.</p>
+        <div class="hero-actions"><a class="btn primary" href="#birth">내 운명 열기</a><a class="btn ghost" href="#features">기능 미리보기</a></div>
+        <small>※ 점술·운세는 오락 및 자기성찰용입니다. 중요한 결정의 유일한 근거로 사용하지 마세요.</small>
+      </div>
+      <div class="orbit-card" aria-hidden="true">
+        <div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div>
+        <div class="core"><span>命</span><b>FATE<br>PROFILE</b></div>
+        <span class="planet p1">木</span><span class="planet p2">火</span><span class="planet p3">土</span><span class="planet p4">金</span><span class="planet p5">水</span>
+      </div>
+    </section>
+
+    <section id="features" class="feature-strip">
+      <article><b>01</b><span>사주 DNA</span><small>오행·기질 시각화</small></article>
+      <article><b>02</b><span>인생 타임라인</span><small>연애·돈·일·관계 흐름</small></article>
+      <article><b>03</b><span>선택 시뮬레이터</span><small>A/B/C 선택 비교</small></article>
+      <article><b>04</b><span>AI 상담사</span><small>성격이 다른 5명의 해석</small></article>
+      <article><b>05</b><span>통합 운명 프로필</span><small>궁합·타로·MBTI·꿈·관상</small></article>
+    </section>
+
+    <section id="birth" class="panel birth-panel">
+      <div class="section-title"><span>STEP 01</span><h2>운명 좌표 입력</h2><p>정확한 만세력 계산값을 먼저 만들고, AI는 그 계산 결과를 해석합니다.</p></div>
+      <form id="birthForm" class="form-grid">
+        <label>이름 또는 닉네임<input name="name" placeholder="예: 봉진" required></label>
+        <label>달력<select name="calendar"><option value="solar">양력</option><option value="lunar">음력</option></select></label>
+        <label>성별<select name="gender"><option value="male">남성</option><option value="female">여성</option></select></label>
+        <label>생년<input name="year" type="number" min="1800" max="2100" value="2000" required></label>
+        <label>월<input name="month" type="number" min="1" max="12" value="1" required></label>
+        <label>일<input name="day" type="number" min="1" max="31" value="1" required></label>
+        <label>시<input name="hour" type="number" min="0" max="23" value="12" required></label>
+        <label>분<input name="minute" type="number" min="0" max="59" value="0" required></label>
+        <label class="check"><input name="leapMonth" type="checkbox"> 음력 윤달</label>
+        <button class="btn primary wide" type="submit">나의 운명 프로필 생성</button>
+      </form>
+      <p id="birthStatus" class="status"></p>
+    </section>
+
+    <section id="profile" class="hidden">
+      <div class="section-title center"><span>DESTINY PROFILE</span><h2><i id="profileName">당신</i>의 운명 코드</h2><p id="codeLine"></p></div>
+      <div class="pillars" id="pillars"></div>
+      <div class="profile-grid">
+        <article class="panel dna-card">
+          <div class="card-head"><div><span>五行 DNA</span><h3>오행 분포</h3></div><strong id="dominantElement"></strong></div>
+          <div id="elementBars" class="element-bars"></div>
+          <div class="mini-note">균형은 좋고 나쁨을 뜻하지 않습니다. 어떤 에너지가 상대적으로 눈에 띄는지 보는 시각화입니다.</div>
+        </article>
+        <article class="panel radar-card">
+          <div class="card-head"><div><span>TRAIT RADAR</span><h3>기질 레이더</h3></div></div>
+          <canvas id="radar" width="480" height="360"></canvas>
+        </article>
+      </div>
+
+      <article class="panel timeline-panel">
+        <div class="card-head"><div><span>FLOW MAP</span><h3>인생 타임라인</h3></div><div class="seg"><button class="active" data-flow="career">직업</button><button data-flow="love">연애</button><button data-flow="money">재물</button><button data-flow="relation">관계</button></div></div>
+        <div id="timeline" class="timeline"></div>
+        <p class="mini-note">이 그래프는 사주 데이터를 바탕으로 만든 오락용 흐름 지표이며 사건 발생을 예언하지 않습니다.</p>
+      </article>
+
+      <div class="profile-grid">
+        <article class="panel daily-card">
+          <div class="card-head"><div><span>DAILY ORACLE</span><h3>오늘의 운세 카드</h3></div><strong id="dailyScore"></strong></div>
+          <div id="dailyContent" class="daily-content"></div>
+          <button id="saveDaily" class="btn ghost small">오늘 카드 저장</button>
+        </article>
+        <article class="panel world-card">
+          <div class="card-head"><div><span>FATE CLUSTER</span><h3>나의 운명 클러스터</h3></div></div>
+          <div id="clusterSigil" class="cluster-sigil"></div>
+          <p id="clusterText"></p>
+          <small>실제 사용자 통계가 쌓이기 전까지 가짜 인원 수나 비율은 표시하지 않습니다.</small>
+        </article>
+      </div>
+
+      <article class="panel counselor-panel">
+        <div class="card-head"><div><span>ASTRA COUNSELOR</span><h3>누구에게 해석받을까요?</h3></div><select id="focus"><option>종합운</option><option>연애운</option><option>직업운</option><option>재물운</option><option>인간관계</option></select></div>
+        <div id="personas" class="personas"></div>
+        <div class="hero-actions"><button id="interpretBtn" class="btn primary">선택한 상담사에게 해석 받기</button><button id="shareProfile" class="btn ghost">운명 코드 공유</button><button id="exportProfile" class="btn ghost">프로필 이미지 저장</button></div>
+        <div id="interpretOutput" class="ai-output">상담사를 선택하고 해석을 요청하면 이곳에 결과가 나타납니다.</div>
+      </article>
+    </section>
+
+
+    <section class="panel counselor-panel" id="chatLab">
+      <div class="section-title"><span>ASTRA LIVE CHAT</span><h2>운명 상담 채팅</h2><p>만들어진 사주 프로필을 바탕으로 Astra에게 자유롭게 후속 질문할 수 있습니다.</p></div>
+      <div id="chatLog" class="ai-output" style="min-height:120px">프로필을 만든 뒤 궁금한 걸 물어보세요. 예: “올해 취업 준비에서 내가 신경 쓸 점은?”</div>
+      <div class="tool-form" style="margin-top:16px"><input id="chatInput" placeholder="Astra에게 물어볼 질문"><button id="chatSend" class="btn primary">상담 보내기</button></div>
+    </section>
+
+    <section id="decision" class="panel tool-panel">
+      <div class="section-title"><span>STEP 02</span><h2>오늘의 선택 시뮬레이터</h2><p>정답을 맞히는 기능이 아니라, 선택마다 무엇을 얻고 감수하는지 비교해 보는 도구입니다.</p></div>
+      <div class="tool-form">
+        <input id="decisionQ" placeholder="예: 헤어진 사람에게 먼저 연락할까?">
+        <input id="optionA" placeholder="A. 먼저 연락한다">
+        <input id="optionB" placeholder="B. 조금 더 기다린다">
+        <input id="optionC" placeholder="C. 관계를 정리한다 (선택)">
+        <button id="decisionBtn" class="btn primary">운명 시뮬레이션</button>
+      </div>
+      <div id="decisionOutput" class="ai-output">사주 프로필을 먼저 만든 뒤 고민을 입력해보세요.</div>
+    </section>
+
+    <section id="compatibility" class="panel tool-panel">
+      <div class="section-title"><span>STEP 03</span><h2>두 사람의 궁합 지도</h2><p>점수 하나 대신 대화·감정·갈등·생활리듬·장기성으로 나눠 봅니다.</p></div>
+      <div class="compat-grid">
+        <div><h3>상대의 생년월일</h3><div class="mini-grid"><input id="bName" placeholder="상대 닉네임"><input id="bYear" type="number" placeholder="년"><input id="bMonth" type="number" placeholder="월"><input id="bDay" type="number" placeholder="일"><input id="bHour" type="number" placeholder="시" value="12"><select id="bCalendar"><option value="solar">양력</option><option value="lunar">음력</option></select><select id="bGender"><option value="female">여성</option><option value="male">남성</option></select></div></div>
+        <div><h3>관계</h3><select id="relation"><option>연애</option><option>친구</option><option>직장</option><option>가족</option></select><button id="compatBtn" class="btn primary">궁합 지도 만들기</button></div>
+      </div>
+      <div id="compatOutput" class="ai-output">두 사람의 프로필을 비교하면 항목별 궁합 해석이 표시됩니다.</div>
+    </section>
+
+    <section class="profile-grid">
+      <article class="panel tool-panel">
+        <div class="section-title"><span>LIFE BRANCHES</span><h2>운명 분기점 캘리브레이션</h2><p>실제 과거 사건을 적고, 사주 해석이 어디까지 맞고 어디서 빗나가는지 돌아봅니다.</p></div>
+        <textarea id="pastEvents" rows="5" placeholder="예: 2024년 입대, 2025년 연애 종료, 2026년 진로 고민 시작"></textarea>
+        <button id="branchesBtn" class="btn primary">분기점 분석</button>
+        <div id="branchesOutput" class="ai-output compact">과거 경험을 적으면 억지 적중이 아니라 '내 패턴' 중심으로 정리합니다.</div>
+      </article>
+      <article class="panel tool-panel">
+        <div class="section-title"><span>FACE SYMBOL</span><h2>관상풍 엔터테인먼트 카드</h2><p>사진에서 보이는 비민감한 특징만 설명하고, 관상 상징은 재미용으로만 연결합니다.</p></div>
+        <input id="faceImage" type="file" accept="image/*">
+        <button id="faceBtn" class="btn primary">관상풍 카드 만들기</button>
+        <div id="faceOutput" class="ai-output compact">사진을 고르면 Astra 비전 입력으로 분위기 카드를 만듭니다.</div>
+      </article>
+    </section>
+
+    <section id="mystic" class="mystic-grid">
+      <article class="panel tool-panel">
+        <div class="section-title"><span>TAROT</span><h2>3장 타로</h2><p>질문을 떠올리고 카드를 뒤집어 보세요.</p></div>
+        <input id="tarotQ" placeholder="타로에 물어볼 질문">
+        <div id="tarotDeck" class="tarot-deck"></div>
+        <button id="tarotBtn" class="btn primary">카드 해석</button>
+        <div id="tarotOutput" class="ai-output compact">카드 3장을 선택하세요.</div>
+      </article>
+      <article class="panel tool-panel">
+        <div class="section-title"><span>MBTI × SAJU</span><h2>성격 교차해석</h2><p>서로 다른 자기이해 도구를 섞어 재미있게 비교합니다.</p></div>
+        <select id="mbti"><option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option><option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option><option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option><option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option></select>
+        <button id="mbtiBtn" class="btn primary">교차해석</button>
+        <div id="mbtiOutput" class="ai-output compact">MBTI와 사주가 어디서 닮고 충돌하는지 비교합니다.</div>
+      </article>
+      <article class="panel tool-panel dream-card">
+        <div class="section-title"><span>DREAM</span><h2>꿈 해몽</h2><p>상징·심리와 전통적 재미 해석을 구분합니다.</p></div>
+        <textarea id="dream" rows="5" placeholder="기억나는 꿈을 최대한 자세히 적어주세요."></textarea>
+        <button id="dreamBtn" class="btn primary">꿈 해석</button>
+        <div id="dreamOutput" class="ai-output compact">꿈을 적고 해석 버튼을 눌러주세요.</div>
+      </article>
+    </section>
+
+    <section class="panel letter-panel">
+      <div class="section-title"><span>TIME CAPSULE</span><h2>미래의 나에게 편지</h2><p>지금의 고민과 마음을 저장하고, 정해 둔 날짜 이후 다시 열어보는 로컬 타임캡슐입니다.</p></div>
+      <textarea id="letterText" rows="4" placeholder="미래의 나에게 남길 말"></textarea>
+      <div class="letter-actions"><input id="letterDate" type="date"><button id="letterSave" class="btn primary">편지 봉인</button><button id="letterOpen" class="btn ghost">봉인함 확인</button></div>
+      <div id="letterOutput" class="ai-output compact"></div>
+    </section>
+  </main>
+
+  <footer><span>✦ 운명공방</span><p>사주와 점술은 오락 및 자기성찰을 위한 콘텐츠입니다.</p><small id="serviceStatus">AI: GPT‑6 Astra · 계산: manseryeok · 상태 확인 중…</small></footer>
+  <script src="/app.js"></script>
+</body>
+</html>

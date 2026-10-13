@@ -1,0 +1,15 @@
+{
+  "name": "fate-atelier",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "24.x" },
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ai": "^7.0.0",
+    "manseryeok": "^2.0.0"
+  }
+}
